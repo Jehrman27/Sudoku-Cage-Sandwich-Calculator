@@ -1,2 +1,2 @@
 # Sudoku-Cage-Sandwich-Calculator
-A program to calculate the possible combinations digits that sum or multiply to a given number
+A program to calculate the possible combinations that a pool of digits add or multiply to a given number
