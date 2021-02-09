@@ -47,46 +47,30 @@ while totalNum.isnumeric() == False or totalNum == 0:
 
 totalNum = int(totalNum) # Typecast the total to an integer for comparing later
 
-print("The default pool of digits contains the whole numbers 1 through 9.")
-
-# Confirm if user wants to exclude any digits in the default pool
-excludeConf = input("Would you like to exclude any of these digits? (yes/no): ")
 
 while excludePrompt == False:
     
-    if excludeConf == "yes":
+    print("The current pool:", poolList) # Display the current pool before each prompt
+
+    excludeTemp = input("Enter a digit to exclude from the pool (enter 0 to continue): ")
+
+    if excludeTemp.isnumeric() == True: # Test if the input is a positive whole number
+
+        if excludeTemp == "0": # If input is 0, exit loops and continue with program
+
+            excludePrompt = True
+            excludeConf = "no"
         
-        while excludeConf == "yes": # If user wants to exclude digits, prompt which
+        elif int(excludeTemp) in poolList: # If the input is in the current pool list, remove it
 
-            print("The current pool:", poolList) # Display the current pool before each prompt
+            excludeTemp = int(excludeTemp)
+            poolList.remove(excludeTemp)
 
-            excludeTemp = input("Enter a digit to exclude from the pool (enter 0 if done): ")
+        elif int(excludeTemp) not in poolList: # If input isn't found in the pool, prompt again
 
-            if excludeTemp.isnumeric() == True: # Test if the input is a positive whole number
+            print("Entry not found in the pool.")                    
 
-                if excludeTemp == "0": # If input is 0, exit loops and continue with program
-
-                    excludePrompt = True
-                    excludeConf = "no"
-                
-                elif int(excludeTemp) in poolList: # If the input is in the current pool list, remove it
-
-                    print("temp in pool list.")
-                    excludeTemp = int(excludeTemp)
-                    poolList.remove(excludeTemp)
-
-                elif int(excludeTemp) not in poolList: # If input isn't found in the pool, prompt again
-
-                    print("Entry not found in the pool.")                    
-
-            else: print("Invalid entry.")
-        
-    elif excludeConf != "no": # If input is neither "yes" or "not", give an error and prompt again
-        
-        excludeConf = input("Invalid entry. Please enter yes or no: ")
-
-    else: excludePrompt = True
-
+    else: print("Invalid entry.")
 
 operConf = input("Please enter what operation you would like to use (Sum, Multiply, Both): ")
 
