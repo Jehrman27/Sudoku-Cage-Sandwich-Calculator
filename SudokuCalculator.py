@@ -3,6 +3,7 @@
 #   This program will calculate all possible combinations that a pool of digits add or multiply to a given number
 
 import itertools                            # Import library needed for calculating all combinations
+import math                                 # Import library for calculating product of all elements in an iterable
 
 totalNum = ""                               # The number to sum/multiple to
 totalPrompt = False                         # Track if user was prompted to enter the total, yet
@@ -13,11 +14,12 @@ excludeTemp = ""                            # Temporary storage of numbers to ex
 excludelist = ""                            # The numbers we want to exclude from the pool
 multList = ""                               # The list of combinations that multiply to numFinal
 operConf = ""                               # Choice of operation to complete at end of program
+operPrompt = False                             # Track if user entered valiid operation
 
+# This function adds up all combinations of digits in pool and prints all that add to total
+def summate(total, pool): 
 
-def summate(total, pool):
-
-    sumsList = [""]                             # The list of combinations that sum to numFinal
+    sumsList = [""]                         # The list of combinations that sum to numFinal
 
     sums = itertools.chain(itertools.combinations(pool, r=n) for n in range(1,len(pool)+1))
 
@@ -27,8 +29,21 @@ def summate(total, pool):
             if sum(s) == total:
                 sumsList.append(s)
                 
-    print(sumsList)
+    print(sumsList) 
 
+# This function multiplies all combinations of digits in pool and prints all that multiply to total
+def multimate(total, pool): 
+
+    multiList = [""]                            # The list of combinations that multiply to numFinal
+
+    products = itertools.chain(itertools.combinations(pool, r=n) for n in range(1,len(pool)+1))
+
+    for it in  products:
+        for s in it:
+            if math.prod(s) == total:
+                multiList.append(s)
+                
+    print(multiList)
 
 # Ask user for the final number to sum/mult to and check if its a valid entry
 while totalNum.isnumeric() == False or totalNum == 0:
@@ -72,6 +87,21 @@ while excludePrompt == False:
 
     else: print("Invalid entry.")
 
-operConf = input("Please enter what operation you would like to use (Sum, Multiply, Both): ")
+while operPrompt == False:
+    operConf = input("Please enter what operation you would like to use (Sum, Multiply, Both): ")
 
-if operConf.lower() == "sum": summate(totalNum, poolList)
+    if operConf.lower() == "sum":
+
+        summate(totalNum, poolList)
+        operPrompt = True
+        
+    elif operConf.lower() == "multiply":
+
+        multimate(totalNum, poolList)
+        operPrompt = True
+        
+    elif operConf.lower() == "both":
+
+        summate(totalNum, poolList)
+        multimate(totalNum, poolList)
+        operPrompt = True
