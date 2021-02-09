@@ -1,10 +1,8 @@
 # Sudoku Killer/Sandwich Calculator
 
-#   This program will accept a final number and a pool of numbers and
-# calculate all of the possible ways that the pool of numbers will
-# sum and multiply to the final number.
+#   This program will calculate all possible combinations that a pool of digits add or multiply to a given number
 
-from itertools import combinations
+import itertools                            # Import library needed for calculating all combinations
 
 totalNum = ""                               # The number to sum/multiple to
 totalPrompt = False                         # Track if user was prompted to enter the total, yet
@@ -13,7 +11,7 @@ excludePrompt = False                       # Track if user was prompted to excl
 excludeConf = ""                            # Yes/no if numbers should be excluded from pool
 excludeTemp = ""                            # Temporary storage of numbers to exclude
 excludelist = ""                            # The numbers we want to exclude from the pool
-sumsList = ""                               # The list of combinations that sum to numFinal
+sumsList = [""]                             # The list of combinations that sum to numFinal
 multList = ""                               # The list of combinations that multiply to numFinal
 
 # Ask user for the final number to sum/mult to and check if its a valid entry
@@ -31,7 +29,7 @@ while totalNum.isnumeric() == False or totalNum == 0:
 
         totalPrompt = True
 
-print (type(totalNum))
+totalNum = int(totalNum)
 
 print("The default pool of digits contains the whole numbers 1 through 9.")
 
@@ -76,6 +74,19 @@ while excludePrompt == False:
         excludeConf = input("Invalid entry. Please enter yes or no: ")
 
     else: excludePrompt = True
+
+
+
+sums = itertools.chain( itertools.combinations(poolList, r=n) for n in range(1,len(poolList)+1))
+
+for it in  sums:
+    for s in it:
+        #print ( f"sum{s} = {s if isinstance(s,int) else sum(s)}")
+        if sum(s) == totalNum:
+            sumsList.append(s)
+            
+print(sumsList)
+
 
 
 
