@@ -14,7 +14,7 @@ excludeTemp = ""                            # Temporary storage of numbers to ex
 excludelist = ""                            # The numbers we want to exclude from the pool
 multList = ""                               # The list of combinations that multiply to numFinal
 operConf = ""                               # Choice of operation to complete at end of program
-operPrompt = False                             # Track if user entered valiid operation
+operPrompt = False                          # Track if user entered valid operation
 
 # This function adds up all combinations of digits in pool and prints all that add to total
 def summate(total, pool): 
